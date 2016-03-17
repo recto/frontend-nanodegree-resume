@@ -10,7 +10,7 @@ var funThoughts = awesomeThoughts.replace("AWESOME", "FUN");
 $("#main").append(funThoughts);
 */
 var apiKey = "AIzaSyA9sN0-XE2-evetw68AJrur3dexxcD6W2w";
-var name = "Itsuo Okamoto";
+var myname = "Itsuo Okamoto";
 var role = "Web Developer";
 var mobile = "555-555-5555";
 var email = "itsuo@recto.com";
@@ -18,7 +18,7 @@ var github = "recto";
 var twitter = "@na";
 var address = "Sunnyvale, CA";
 var pictureUrl = "images/20150412_101008.jpg";
-var welcomeMessage = "Welcome to my profile page!!"
+var welcomeMessage = "Welcome to my profile page!!";
 /**
 Formatted Name/Role
 var formattedName = HTMLheaderName.replace("%data%", name);
@@ -32,7 +32,7 @@ $("#header").prepend(formattedName);
 Formatted Name/Role/Contact/Picture URL with bio object.
 */
 var bio = {
-     "name" : name,
+     "name" : myname,
      "role" : role,
      "welcomeMessage" : welcomeMessage,
      "skills" : ["java", "javascript"],
@@ -44,7 +44,7 @@ var bio = {
         "location" : address,
     },
     "biopic" : pictureUrl
-}
+};
 
 bio.display = function () {
     var formattedName = HTMLheaderName.replace("%data%", bio.name);
@@ -69,12 +69,12 @@ bio.display = function () {
     $("#header").append(formattedWelcomeMsg);
     if (bio.skills && bio.skills.length > 0) {
         $("#header").append(HTMLskillsStart);
-        for (skill in bio.skills) {
+        for (var skill in bio.skills) {
             var formattedSkill = HTMLskills.replace("%data%", bio.skills[skill]);
             $("#header").append(formattedSkill);
         }
     }
-}
+};
 
 var education = {
     "schools" : [
@@ -95,19 +95,20 @@ var education = {
             "url" : "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
         }
     ]
-}
+};
 
 education.display = function() {
     if (education.schools || education.onlineCourses) {
         $("#education").append(HTMLschoolStart);
     }
-    for (school in education.schools) {
+    var formatted;
+    for (var school in education.schools) {
         var formattedName = HTMLschoolName.replace("%data%",
             education.schools[school].name);
         var formattedDegree = HTMLschoolDegree.replace("%data%",
             education.schools[school].degree);
         $(".education-entry:last").append(formattedName + formattedDegree);
-        var formatted = HTMLschoolDates.replace("%data%",
+        formatted = HTMLschoolDates.replace("%data%",
             education.schools[school].dates);
         $(".education-entry:last").append(formatted);
         formatted = HTMLschoolLocation.replace("%data%",
@@ -122,7 +123,7 @@ education.display = function() {
             education.schools[school].url);
         $(".education-entry:last").append(formatted);
     }
-    for (course in education.onlineCourses) {
+    for (var course in education.onlineCourses) {
         $("#education").append(HTMLonlineClasses);
         $("#education").append(HTMLonlineStart);
         var formattedTitle = HTMLonlineTitle.replace("%data%",
@@ -130,7 +131,7 @@ education.display = function() {
         var formattedSchool = HTMLonlineSchool.replace("%data%",
             education.onlineCourses[course].school);
         $(".online-entry:last").append(formattedTitle + formattedSchool);
-        var formatted = HTMLonlineDates.replace("%data%",
+        formatted = HTMLonlineDates.replace("%data%",
             education.onlineCourses[course].date);
         $(".online-entry:last").append(formatted);
         formatted = HTMLonlineURL.replace("%data%",
@@ -138,7 +139,7 @@ education.display = function() {
         $(".online-entry:last").append(formatted);
     }
 
-}
+};
 
 var work = {
     "jobs" : [
@@ -157,10 +158,10 @@ var work = {
             "description" : "Internationalize and localize software."
         }
     ]
-}
+};
 
 work.display = function() {
-    for (job in work.jobs) {
+    for (var job in work.jobs) {
         $("#workExperience").append(HTMLworkStart);
         var formattedEmployer = HTMLworkEmployer.replace("%data%",
             work.jobs[job].employer);
@@ -177,7 +178,7 @@ work.display = function() {
             work.jobs[job].description);
         $(".work-entry:last").append(formatted);
     }
-}
+};
 
 var projects = {
     "projects" : [
@@ -188,10 +189,10 @@ var projects = {
             "images" : ["images/udacity_logo.svg"]
         }
     ]
-}
+};
 
 projects.display = function() {
-    for (project in projects.projects) {
+    for (var project in projects.projects) {
         $("#projects").append(HTMLprojectStart);
         var formattedTitle = HTMLprojectTitle.replace("%data%",
             projects.projects[project].title);
@@ -204,18 +205,18 @@ projects.display = function() {
         $(".project-entry:last").append(formattedDescription);
 
         if(projects.projects[project].images.length > 0) {
-            for (image in projects.projects[project].images) {
+            for (var image in projects.projects[project].images) {
                 var formattedImage = HTMLprojectImage.replace("%data%",
                     projects.projects[project].images[image]);
                 $(".project-entry:last").append(formattedImage);
             }
         }
     }
-}
+};
 
 function locationizer(work_obj) {
     var locations = [];
-    for (job in work_obj.jobs) {
+    for (var job in work_obj.jobs) {
         locations.push(work_obj.jobs[job].location);
     }
     return locations;
