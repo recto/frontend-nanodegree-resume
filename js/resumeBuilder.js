@@ -55,13 +55,14 @@ bio.display = function () {
     var formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
     var formattedPictureUrl = HTMLbioPic.replace("%data%", bio.biopic);
     var formattedWelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
+    var formattedTwitter;
+    if (bio.contacts.twitter) {
+        formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
+    }
     $("#header").prepend(formattedRole);
     $("#header").prepend(formattedName);
-    $("#topContacts").append(formattedMobile);
-    $("#topContacts").append(formattedEmail);
-    $("#topContacts").append(formattedGithub);
-    if (bio.contacts.twitter) {
-        var formattedTwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
+    $("#topContacts").append(formattedMobile, formattedEmail, formattedGithub);
+    if (formattedTwitter) {
         $("#topContacts").append(formattedTwitter);
     }
     $("#topContacts").append(formattedLocation);
@@ -74,11 +75,15 @@ bio.display = function () {
             $("#header").append(formattedSkill);
         }
     }
+    $("#footerContacts").append(formattedMobile, formattedEmail, formattedGithub);
+    if (formattedTwitter) {
+        $("#footerContacts").append(formattedTwitter);
+    }
+    $("#footerContacts").append(formattedLocation);
 };
 
 var education = {
-    "schools" : [
-        {
+    "schools" : [{
             "name" : "Kobe University",
             "location" : "Kobe, Hyogo, Japan",
             "degree" : "Bachelor",
@@ -87,8 +92,7 @@ var education = {
             "url" : "http://kobe-u.ac.jp"
         }
     ],
-    "onlineCourses" : [
-        {
+    "onlineCourses" : [{
             "title" : "Front-end Web Developer Nanodegeee",
             "school" : "Udacity",
             "date" : "March, 2016",
@@ -98,9 +102,7 @@ var education = {
 };
 
 education.display = function() {
-    if (education.schools || education.onlineCourses) {
-        $("#education").append(HTMLschoolStart);
-    }
+    $("#education").append(HTMLschoolStart);
     var formatted;
     for (var school in education.schools) {
         var formattedName = HTMLschoolName.replace("%data%",
@@ -142,8 +144,7 @@ education.display = function() {
 };
 
 var work = {
-    "jobs" : [
-        {
+    "jobs" : [{
             "employer" : "Software AG",
             "title" : "Globalization Architect",
             "location" : "Santa Clara, CA",
